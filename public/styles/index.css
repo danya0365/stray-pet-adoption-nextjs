@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+/* ============================================
+   Live Learning — Main Entry Point
+   All styles are organized into separate modules:
+   
+   1. theme.css      → @theme tokens, variables, dark mode
+   2. base.css       → Base element styles (body, scrollbar)
+   3. animations.css → @keyframes + animation utilities
+   4. components.css → Glassmorphism, cards, components
+   ============================================ */
+
+@import "./theme.css";
+
+@layer base {
+  @import "./base.css";
+}
+
+@layer components {
+  @import "./animations.css";
+  @import "./components.css";
+}
