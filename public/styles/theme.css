@@ -13,96 +13,77 @@
    etc.
    ============================================ */
 @theme {
+  /* iOS 26 Liquid Glass Palette */
+  --color-ios-blue: #007AFF;
+  --color-ios-indigo: #5E5CE6;
+  --color-ios-teal: #30D5C8;
+  --color-ios-red: #FF3B30;
+  --color-ios-green: #34C759;
+  --color-ios-orange: #FF9500;
+  
   /* Primary Colors */
-  --color-primary: hsl(250 80% 65%);
-  --color-primary-light: hsl(250 80% 75%);
-  --color-primary-dark: hsl(250 80% 55%);
+  --color-primary: var(--color-ios-blue);
+  --color-primary-light: #58A1FF;
+  --color-primary-dark: #0056B3;
   
-  /* Secondary Colors */
-  --color-secondary: hsl(210 80% 70%);
-  --color-secondary-light: hsl(210 80% 80%);
-  --color-secondary-dark: hsl(210 80% 60%);
-  
-  /* Accent Colors */
-  --color-accent: hsl(330 80% 70%);
-  --color-accent-light: hsl(330 80% 80%);
-  --color-accent-dark: hsl(330 80% 60%);
-  
-  /* Status Colors */
-  --color-success: hsl(150 70% 50%);
-  --color-warning: hsl(45 100% 60%);
-  --color-error: hsl(0 80% 60%);
-  
-  /* Layout Colors (Light Mode defaults) */
-  --color-background: hsl(240 100% 98%);
-  --color-foreground: hsl(240 10% 10%);
-  --color-surface: hsl(240 60% 96%);
-  --color-surface-elevated: hsl(240 60% 100%);
+  /* Layout Colors (Light Mode) */
+  --color-background: #F2F2F7;
+  --color-foreground: rgba(28,28,30,0.92);
+  --color-surface: rgba(255,255,255,0.45);
+  --color-surface-elevated: rgba(255,255,255,0.72);
   
   /* Text Colors */
-  --color-text-primary: hsl(240 10% 20%);
-  --color-text-secondary: hsl(240 10% 45%);
-  --color-text-muted: hsl(240 10% 60%);
+  --color-text-primary: rgba(28,28,30,0.92);
+  --color-text-secondary: rgba(28,28,30,0.55);
+  --color-text-muted: rgba(28,28,30,0.30);
   
   /* Border */
-  --color-border: hsl(240 20% 90%);
-  --color-border-muted: hsl(240 20% 92%);
+  --color-border: rgba(255,255,255,0.65);
+  --color-border-muted: rgba(255,255,255,0.4);
 }
 
 /* ============================================
-   Light Theme (CSS Variables that cannot be @theme)
-   Glass, Gradients, etc. that use complex values
-   ⚠️ MUST come BEFORE .dark to respect cascade order
+   Light Theme (Complex Variables)
    ============================================ */
 :root {
   /* Glass Effect (Light) */
-  --glass-bg: rgba(255, 255, 255, 0.25);
-  --glass-border: rgba(255, 255, 255, 0.4);
-  --glass-shadow: 0 8px 32px rgba(100, 100, 200, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
+  --glass-shadow-elevated: 0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9);
   
-  /* Header (Light) */
-  --header-rgb: 255, 255, 255;
-  --header-bg: rgba(255, 255, 255, 0.4);
-  --header-bg-scrolled: rgba(255, 255, 255, 0.85);
+  /* UI Curves */
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   
-  /* Gradients (Light) */
-  --gradient-primary: linear-gradient(135deg, hsl(250, 80%, 75%) 0%, hsl(210, 80%, 75%) 50%, hsl(280, 70%, 80%) 100%);
-  --gradient-background: linear-gradient(180deg, hsl(230, 70%, 95%) 0%, hsl(260, 60%, 92%) 50%, hsl(210, 70%, 94%) 100%);
-  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 255, 0.8) 100%);
+  /* Gradients */
+  --gradient-background: linear-gradient(135deg, #F0F4FF 0%, #F2F2F7 30%, #EDF2FF 60%, #F7F2FF 100%);
+  --gradient-primary: linear-gradient(135deg, var(--color-ios-blue), var(--color-ios-indigo));
 }
 
 /* ============================================
-   Dark Theme Overrides
-   ⚠️ MUST come AFTER :root to override via cascade
+   Liquid Dark Theme Overrides
    ============================================ */
 .dark {
-  /* Layout Colors */
-  --color-background: hsl(240 20% 8%);
-  --color-foreground: hsl(240 10% 95%);
-  --color-surface: hsl(240 22% 16%);
-  --color-surface-elevated: hsl(240 22% 20%);
+  --color-background: #000000;
+  --color-foreground: rgba(255,255,255,0.92);
+  --color-surface: rgba(44,44,46,0.5);
+  --color-surface-elevated: rgba(60,60,62,0.7);
   
   /* Text Colors */
-  --color-text-primary: hsl(240 10% 95%);
-  --color-text-secondary: hsl(240 10% 70%);
-  --color-text-muted: hsl(240 10% 50%);
+  --color-text-primary: rgba(255,255,255,0.95);
+  --color-text-secondary: rgba(255,255,255,0.6);
+  --color-text-muted: rgba(255,255,255,0.35);
   
   /* Border */
-  --color-border: hsl(240 20% 28%);
-  --color-border-muted: hsl(240 20% 22%);
+  --color-border: rgba(255,255,255,0.1);
   
   /* Glass Effect (Dark) */
-  --glass-bg: rgba(30, 30, 50, 0.65);
-  --glass-border: rgba(120, 120, 180, 0.35);
-  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-  
-  /* Header (Dark) */
-  --header-rgb: 20, 20, 40;
-  --header-bg: rgba(20, 20, 40, 0.45);
-  --header-bg-scrolled: rgba(20, 20, 40, 0.92);
-  
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --glass-shadow-elevated: 0 24px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
   /* Gradients (Dark) */
-  --gradient-primary: linear-gradient(135deg, hsl(250, 70%, 55%) 0%, hsl(210, 70%, 60%) 50%, hsl(280, 60%, 55%) 100%);
-  --gradient-background: linear-gradient(180deg, hsl(240, 30%, 10%) 0%, hsl(260, 30%, 12%) 50%, hsl(230, 30%, 14%) 100%);
-  --gradient-card: linear-gradient(145deg, rgba(50, 50, 75, 0.9) 0%, rgba(40, 40, 65, 0.8) 100%);
+  --gradient-background: radial-gradient(circle at 50% 50%, #1C1C1E 0%, #000000 100%);
 }
