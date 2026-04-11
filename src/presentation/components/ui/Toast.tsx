@@ -12,7 +12,7 @@ function cn(...inputs: ClassValue[]) {
 export type ToastType = 'info' | 'success' | 'warning' | 'error';
 
 interface ToastProps {
-  title: string;
+  title?: string;
   message?: string;
   type?: ToastType;
   onClose?: () => void;
@@ -26,6 +26,8 @@ export const Toast: React.FC<ToastProps> = ({
   onClose,
   className 
 }) => {
+  const displayTitle = title || message;
+  const displayMessage = title ? message : undefined;
   const config = {
     info: { icon: Info, color: 'var(--color-ios-blue)', bg: 'bg-blue-500/10' },
     success: { icon: CheckCircle, color: 'var(--color-ios-green)', bg: 'bg-green-500/10' },
@@ -44,8 +46,8 @@ export const Toast: React.FC<ToastProps> = ({
         <Icon size={20} />
       </div>
       <div className="flex flex-col flex-1">
-        <h4 className="text-sm font-bold tracking-tight">{title}</h4>
-        {message && <p className="text-xs font-medium opacity-60 leading-relaxed">{message}</p>}
+        <h4 className="text-sm font-bold tracking-tight">{displayTitle}</h4>
+        {displayMessage && <p className="text-xs font-medium opacity-60 leading-relaxed">{displayMessage}</p>}
       </div>
       {onClose && (
         <button onClick={onClose} className="p-1.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-full opacity-40 hover:opacity-100 transition-all">

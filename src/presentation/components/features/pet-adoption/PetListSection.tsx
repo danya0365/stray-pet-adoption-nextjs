@@ -6,6 +6,7 @@ import { PetCard } from './PetCard';
 interface PetListSectionProps {
   activeTab: string;
   pets: {
+    id: string;
     name: string;
     type: 'Dog' | 'Cat';
     breed: string;
@@ -31,7 +32,8 @@ export const PetListSection: React.FC<PetListSectionProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {pets.map((pet, i) => (
           <PetCard 
-            key={i}
+            key={pet.id}
+            id={pet.id}
             name={pet.name}
             type={pet.type}
             breed={pet.breed}

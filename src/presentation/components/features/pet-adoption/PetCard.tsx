@@ -12,7 +12,10 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+import Link from 'next/link';
+
 interface PetCardProps {
+  id: string;
   name: string;
   type: 'Dog' | 'Cat';
   breed: string;
@@ -22,6 +25,7 @@ interface PetCardProps {
 }
 
 export const PetCard = ({ 
+  id,
   name, 
   type, 
   breed, 
@@ -49,9 +53,11 @@ export const PetCard = ({
           <h3 className="text-xl font-bold tracking-tight">{name}</h3>
           <span className="text-sm opacity-60 font-medium">{breed}</span>
         </div>
-        <Button variant="secondary" fullWidth className="mt-2">
-          ดูรายละเอียด
-        </Button>
+        <Link href={`/pets/${id}`} className="block mt-2">
+          <Button variant="secondary" fullWidth>
+            ดูรายละเอียด
+          </Button>
+        </Link>
       </div>
     </GlassCard>
   );

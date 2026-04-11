@@ -2,6 +2,7 @@ import '@/public/styles/index.css';
 import type { Metadata } from "next";
 import { Noto_Sans_Thai, DM_Sans } from 'next/font/google';
 import { ThemeProvider } from '@/src/presentation/providers/ThemeProvider';
+import { Toaster } from '@/src/presentation/components/shared/Toaster';
 
 const notoSansThai = Noto_Sans_Thai({
   subsets: ['thai', 'latin'],
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body className={`${notoSansThai.className} font-sans antialiased text-[var(--color-text-primary)]`}>
         <ThemeProvider>
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

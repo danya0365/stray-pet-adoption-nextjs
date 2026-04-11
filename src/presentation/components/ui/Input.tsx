@@ -44,7 +44,7 @@ export const Input: React.FC<InputProps> = ({
             "pl-4 flex items-center justify-center transition-all duration-300",
             focused ? "text-[var(--color-ios-blue)] scale-110" : "text-black/30 dark:text-white/30"
           )}>
-            {React.cloneElement(icon as React.ReactElement, { size: 18, strokeWidth: 2.5 })}
+            {React.cloneElement(icon as React.ReactElement<{ size?: number; strokeWidth?: number }>, { size: 18, strokeWidth: 2.5 })}
           </div>
         )}
         <input
