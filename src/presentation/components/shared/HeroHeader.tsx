@@ -8,7 +8,7 @@ interface HeroHeaderProps {
   subtitle?: string;
   metrics: {
     label: string;
-    value: string;
+    value: string | number;
     unit: string;
     delay?: string;
   }[];
