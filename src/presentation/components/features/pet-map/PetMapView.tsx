@@ -1,17 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import Map, { Marker, Popup, NavigationControl, FullscreenControl } from 'react-map-gl/maplibre';
-import 'maplibre-gl/dist/maplibre-gl.css';
 import { Pet } from '@/src/domain/Pet';
-import { MapViewModel } from '@/src/presentation/presenters/map/MapPresenter';
-import { GlassCard } from '@/src/presentation/components/ui/GlassCard';
+import { LocationPickerModal, SelectedLocation } from '@/src/presentation/components/shared/LocationPickerModal';
 import { Badge } from '@/src/presentation/components/ui/Badge';
 import { Button } from '@/src/presentation/components/ui/Button';
+import { GlassCard } from '@/src/presentation/components/ui/GlassCard';
+import { MapViewModel } from '@/src/presentation/presenters/map/MapPresenter';
+import { motion } from 'framer-motion';
+import { ArrowRight, Crosshair, MapPin } from 'lucide-react';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPin, Info, ArrowRight } from 'lucide-react';
+import { useRef, useState } from 'react';
+import Map, { FullscreenControl, MapRef, Marker, NavigationControl, Popup } from 'react-map-gl/maplibre';
 
 interface PetMapViewProps {
   initialViewModel: MapViewModel;
@@ -24,22 +25,61 @@ interface PetMapViewProps {
 export default function PetMapView({ initialViewModel }: PetMapViewProps) {
   const { pets, center, zoom } = initialViewModel;
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const [userLocation, setUserLocation] = useState<SelectedLocation | null>(null);
+  const mapRef = useRef<MapRef>(null);
+
+  const handleConfirmLocation = (location: SelectedLocation) => {
+    setUserLocation(location);
+    setIsPickerOpen(false);
+    
+    // Fly to user location
+    mapRef.current?.flyTo({
+      center: [location.longitude, location.latitude],
+      zoom: 14,
+      duration: 2000
+    });
+  };
 
   return (
     <div className="w-full h-[calc(100vh-80px)] md:h-[calc(100vh-120px)] mt-4 relative overflow-hidden rounded-[40px] shadow-2xl border border-white/10 animate-float-in">
       
-      {/* Search Overlay */}
-      <div className="absolute top-6 left-6 right-6 md:left-auto md:right-6 md:w-80 z-20">
+      {/* Search & Location Overlay */}
+      <div className="absolute top-6 left-6 right-6 md:left-auto md:right-6 md:w-80 z-20 flex flex-col gap-3">
          <GlassCard className="p-4 flex flex-col gap-3">
             <h3 className="font-bold flex items-center gap-2">
               <MapPin size={18} className="text-[var(--color-ios-blue)]" />
               ค้นหาน้องๆ ใกล้ตัวคุณ
             </h3>
-            <p className="text-xs opacity-60">แสดงตำแหน่งน้องๆ ในกรุงเทพฯ และปริมณฑล</p>
+            {userLocation ? (
+              <div className="flex flex-col gap-2 p-3 rounded-2xl bg-[var(--color-ios-blue)]/5 border border-[var(--color-ios-blue)]/10">
+                 <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-ios-blue)]">ตำแหน่งของคุณ</span>
+                 <p className="text-xs font-bold truncate">{userLocation.address}</p>
+                 <button 
+                  onClick={() => setIsPickerOpen(true)}
+                  className="text-[10px] font-bold text-[var(--color-ios-blue)] hover:underline text-left"
+                 >
+                   เปลี่ยนตำแหน่ง
+                 </button>
+              </div>
+            ) : (
+              <>
+                <p className="text-xs opacity-60">แสดงตำแหน่งน้องๆ ในกรุงเทพฯ และปริมณฑล</p>
+                <Button 
+                  variant="secondary" 
+                  fullWidth 
+                  className="py-2 text-xs gap-2"
+                  onClick={() => setIsPickerOpen(true)}
+                >
+                  <Crosshair size={14} /> ระบุตำแหน่งของคุณ
+                </Button>
+              </>
+            )}
          </GlassCard>
       </div>
 
       <Map
+        ref={mapRef}
         initialViewState={{
           longitude: center.lng,
           latitude: center.lat,
@@ -50,6 +90,26 @@ export default function PetMapView({ initialViewModel }: PetMapViewProps) {
       >
         <NavigationControl position="bottom-right" />
         <FullscreenControl position="bottom-right" />
+
+        {/* User Location Marker */}
+        {userLocation && (
+          <Marker
+            longitude={userLocation.longitude}
+            latitude={userLocation.latitude}
+            anchor="bottom"
+          >
+            <motion.div 
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="relative"
+            >
+               <div className="absolute -inset-4 bg-[var(--color-ios-blue)]/20 rounded-full animate-ping" />
+               <div className="w-8 h-8 rounded-full bg-[var(--color-ios-blue)] border-4 border-white shadow-2xl flex items-center justify-center text-white relative z-10">
+                  <Crosshair size={16} />
+               </div>
+            </motion.div>
+          </Marker>
+        )}
 
         {/* Pet Markers */}
         {pets.map((pet) => (
@@ -139,6 +199,14 @@ export default function PetMapView({ initialViewModel }: PetMapViewProps) {
           </Popup>
         )}
       </Map>
+
+      {/* Location Picker Modal */}
+      <LocationPickerModal 
+        isOpen={isPickerOpen}
+        onClose={() => setIsPickerOpen(false)}
+        onConfirm={handleConfirmLocation}
+        initialLocation={userLocation ? { latitude: userLocation.latitude, longitude: userLocation.longitude } : undefined}
+      />
 
       <style jsx global>{`
         .custom-map-popup .maplibregl-popup-content {
