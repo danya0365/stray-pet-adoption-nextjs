@@ -20,6 +20,7 @@ interface PetCardProps {
   type: 'Dog' | 'Cat';
   breed: string;
   image: string;
+  distance?: string;
   delay?: string;
   className?: string;
 }
@@ -30,6 +31,7 @@ export const PetCard = ({
   type, 
   breed, 
   image, 
+  distance,
   delay = "0s",
   className = "" 
 }: PetCardProps) => {
@@ -44,19 +46,27 @@ export const PetCard = ({
           fill 
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute top-3 left-3">
+        <div className="absolute top-3 left-3 flex flex-col gap-2">
           <Badge label={type === 'Dog' ? 'สุนัข' : 'แมว'} type={badgeType} />
+          {distance && (
+            <div className="px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-md text-white text-[10px] font-bold w-fit border border-white/20">
+              📍 {distance}
+            </div>
+          )}
         </div>
       </div>
-      <div className="p-4 flex flex-col gap-2">
-        <div className="flex justify-between items-center">
-          <h3 className="text-xl font-bold tracking-tight">{name}</h3>
-          <span className="text-sm opacity-60 font-medium">{breed}</span>
+      <div className="p-5 flex flex-col gap-4">
+        <div className="flex flex-col gap-0.5">
+          <h3 className="text-xl font-bold tracking-tight text-[var(--color-text-primary)]">{name}</h3>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-secondary)]">
+            {breed}
+          </p>
         </div>
-        <Link href={`/pets/${id}`} className="block mt-2">
-          <Button variant="secondary" fullWidth>
+        
+        <Link href={`/pets/${id}`} className="block">
+          <button className="w-full btn-ios btn-ios-primary pressable text-sm py-3 rounded-2xl shadow-lg shadow-[var(--color-ios-blue)]/20">
             ดูรายละเอียด
-          </Button>
+          </button>
         </Link>
       </div>
     </GlassCard>
