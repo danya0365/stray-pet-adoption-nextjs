@@ -8,6 +8,7 @@ import { Badge } from '@/src/presentation/components/ui/Badge';
 import { GlassCard } from '@/src/presentation/components/ui/GlassCard';
 import { MetricCard } from '@/src/presentation/components/ui/MetricCard';
 import { HeroHeader } from '@/src/presentation/components/shared/HeroHeader';
+import { cn } from '@/src/application/utils/ui';
 import Link from 'next/link';
 import { ChevronLeft, Share2, Heart, Shield, Info, Activity } from 'lucide-react';
 import Image from 'next/image';
@@ -39,20 +40,20 @@ export const PetDetailView: React.FC<PetDetailViewProps> = ({ initialViewModel }
       {/* Top Breadcrumb & Navigation */}
       <nav className="flex items-center justify-between mb-2 animate-float-in">
         <div className="flex items-center gap-3">
-          <Link href="/" className="pressable p-2 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors">
-            <ChevronLeft size={24} />
+          <Link href="/" className="pressable p-2 rounded-2xl bg-[var(--color-surface-elevated)] border border-[var(--color-border-muted)] hover:bg-[var(--color-border-muted)] transition-colors">
+            <ChevronLeft size={24} className="text-[var(--color-text-primary)]" />
           </Link>
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-widest opacity-40">Adoption Detail</span>
-            <span className="text-sm font-semibold opacity-60">หน้าแรก / รายละเอียดน้อง{pet.type === 'Dog' ? 'สุนัข' : 'แมว'}</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-secondary)] opacity-60">Adoption Detail</span>
+            <span className="text-sm font-semibold text-[var(--color-text-primary)] opacity-80">หน้าแรก / รายละเอียดน้อง{pet.type === 'Dog' ? 'สุนัข' : 'แมว'}</span>
           </div>
         </div>
         <div className="flex gap-2">
-           <button className="pressable p-3 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors">
-              <Share2 size={20} className="opacity-60" />
+           <button className="pressable p-3 rounded-2xl bg-[var(--color-surface-elevated)] border border-[var(--color-border-muted)] hover:bg-[var(--color-border-muted)] transition-colors">
+              <Share2 size={20} className="text-[var(--color-text-secondary)]" />
            </button>
-           <button className="pressable opacity-60 hover:opacity-100 p-3 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors">
-              <Heart size={20} />
+           <button className="pressable p-3 rounded-2xl bg-[var(--color-surface-elevated)] border border-[var(--color-border-muted)] hover:bg-[var(--color-border-muted)] transition-colors group">
+              <Heart size={20} className="text-[var(--color-text-secondary)] group-hover:text-[var(--color-ios-red)] transition-colors" />
            </button>
         </div>
       </nav>
@@ -117,16 +118,16 @@ export const PetDetailView: React.FC<PetDetailViewProps> = ({ initialViewModel }
                <h3 className="text-xl font-bold tracking-tight">เรื่องราวของ{pet.name}</h3>
             </div>
             
-            <p className="text-lg font-light leading-relaxed opacity-80 tracking-wide">
+            <p className="text-lg font-light leading-relaxed text-[var(--color-text-primary)] opacity-90 tracking-wide">
               "{pet.description || 'ยังไม่มีข้อมูลเรื่องราวของน้องในขณะนี้'}"
             </p>
 
-            <div className="pt-4 border-t border-white/5 flex flex-col gap-4">
-               <div className="flex items-center gap-3 opacity-60">
+            <div className="pt-4 border-t border-[var(--color-border-muted)] flex flex-col gap-4">
+               <div className="flex items-center gap-3 text-[var(--color-text-secondary)]">
                  <Activity size={18} />
                  <span className="text-sm font-medium">สุขภาพ: ฉีดวัคซีนแล้ว / ทำหมันแล้ว</span>
                </div>
-               <div className="flex items-center gap-3 opacity-60">
+               <div className="flex items-center gap-3 text-[var(--color-text-secondary)]">
                  <Info size={18} />
                  <span className="text-sm font-medium">นิสัย: ร่าเริง, เข้ากับเด็กได้ดี</span>
                </div>

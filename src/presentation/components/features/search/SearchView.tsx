@@ -71,7 +71,7 @@ export default function SearchView({ initialViewModel }: SearchViewProps) {
                  {/* Location Picker Trigger */}
                  <button 
                    onClick={() => setIsLocationModalOpen(true)}
-                   className="w-full lg:w-auto flex items-center gap-4 px-6 py-2.5 rounded-[24px] bg-[var(--color-ios-blue)]/5 hover:bg-[var(--color-ios-blue)]/10 border border-[var(--color-ios-blue)]/10 transition-all group pressable"
+                   className="w-full lg:w-auto flex items-center gap-4 px-6 py-2.5 rounded-[24px] bg-[var(--color-surface-elevated)] hover:bg-[var(--color-border-muted)] border border-[var(--color-border-muted)] transition-all group pressable"
                  >
                     <div className="w-10 h-10 rounded-2xl bg-[var(--color-ios-blue)] text-white flex items-center justify-center shrink-0 shadow-lg shadow-[var(--color-ios-blue)]/20">
                        <MapPin size={20} />
@@ -108,7 +108,7 @@ export default function SearchView({ initialViewModel }: SearchViewProps) {
                 exit={{ height: 0, opacity: 0, scale: 0.95 }}
                 className="overflow-hidden"
               >
-                 <GlassCard className="p-10 border-[var(--glass-border)] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-2">
+                 <GlassCard className="p-10 border border-[var(--color-border-muted)] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-2">
                     <div className="flex flex-col gap-4">
                        <label className="section-label !mb-0">ประเภทของน้อง</label>
                        <SegmentedControl 

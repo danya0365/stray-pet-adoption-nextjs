@@ -16,6 +16,7 @@ import Link from 'next/link';
 import { MapPin, Info, ArrowRight, Crosshair, ChevronUp, ChevronDown, List, Dog, Cat } from 'lucide-react';
 import { LocationPickerModal, SelectedLocation } from '@/src/presentation/components/shared/LocationPickerModal';
 import { calculateDistance, formatDistance } from '@/src/application/utils/location';
+import { cn } from '@/src/application/utils/ui';
 
 interface PetMapViewProps {
   initialViewModel: MapViewModel;
@@ -84,7 +85,7 @@ export default function PetMapView({ initialViewModel }: PetMapViewProps) {
   };
 
   return (
-    <div className="w-full h-[calc(100vh-120px)] mt-4 relative overflow-hidden rounded-[40px] shadow-2xl border border-white/10 flex flex-col">
+    <div className="w-full h-[calc(100vh-120px)] mt-4 relative overflow-hidden rounded-[40px] shadow-2xl border border-[var(--color-border-muted)] flex flex-col bg-[var(--color-surface)]">
       
       {/* --- Filter Control Overlays --- */}
       
@@ -97,9 +98,9 @@ export default function PetMapView({ initialViewModel }: PetMapViewProps) {
                   Smart Pet Map
                 </h3>
                 {userLocation ? (
-                  <div className="flex flex-col gap-2 p-3 rounded-2xl bg-[var(--color-ios-blue)]/5 border border-[var(--color-ios-blue)]/10">
+                  <div className="flex flex-col gap-2 p-3 rounded-2xl bg-[var(--color-ios-blue)]/10 border border-[var(--color-ios-blue)]/20">
                      <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-ios-blue)]">จุดศุนย์กลางการค้นหา</span>
-                     <p className="text-xs font-bold truncate leading-none">{userLocation.address}</p>
+                     <p className="text-xs font-bold truncate leading-none text-[var(--color-text-primary)]">{userLocation.address}</p>
                      <button 
                         onClick={() => setIsPickerOpen(true)}
                         className="text-[10px] font-bold text-[var(--color-ios-blue)] hover:underline text-left mt-1"
@@ -268,18 +269,18 @@ export default function PetMapView({ initialViewModel }: PetMapViewProps) {
               className="absolute bottom-0 left-0 right-0 z-30 pointer-events-none"
             >
                <div className="max-w-4xl mx-auto w-full px-6 pb-6 pointer-events-auto">
-                  <GlassCard className="flex flex-col overflow-hidden max-h-80 shadow-[0_-20px_50px_rgba(0,0,0,0.2)]">
+                   <GlassCard className="flex flex-col overflow-hidden max-h-80 shadow-[var(--glass-shadow-elevated)]">
                      <button 
                         onClick={() => setShowNearbyList(!showNearbyList)}
-                        className="w-full py-4 flex items-center justify-between px-6 hover:bg-white/5 transition-colors group"
+                        className="w-full py-4 flex items-center justify-between px-6 hover:bg-[var(--color-border-muted)] transition-colors group"
                      >
                         <div className="flex items-center gap-3">
                            <div className="w-10 h-10 rounded-2xl bg-[var(--color-ios-blue)]/10 text-[var(--color-ios-blue)] flex items-center justify-center">
                               <List size={20} />
                            </div>
                            <div className="flex flex-col items-start translate-y-[-1px]">
-                              <span className="text-sm font-black tracking-tight">น้องๆ ในละแวกนี้ ({filteredPets.length})</span>
-                              <span className="text-[10px] opacity-40 font-bold uppercase tracking-wider">อิงจากตัวกรองปัจจุบันของคุณ</span>
+                              <span className="text-sm font-black tracking-tight text-[var(--color-text-primary)]">น้องๆ ในละแวกนี้ ({filteredPets.length})</span>
+                              <span className="text-[10px] text-[var(--color-text-secondary)] opacity-60 font-bold uppercase tracking-wider">อิงจากตัวกรองปัจจุบันของคุณ</span>
                            </div>
                         </div>
                         {showNearbyList ? <ChevronDown size={20} className="opacity-40" /> : <ChevronUp size={20} className="opacity-40 group-hover:animate-bounce" />}
@@ -301,14 +302,14 @@ export default function PetMapView({ initialViewModel }: PetMapViewProps) {
                                         setSelectedPet(pet);
                                         mapRef.current?.flyTo({ center: [pet.longitude!, pet.latitude!], zoom: 15 });
                                       }}
-                                      className="pressable p-3 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 flex items-center gap-4 cursor-pointer"
+                                      className="pressable p-3 rounded-2xl bg-[var(--color-surface-elevated)] border border-[var(--color-border-muted)] hover:bg-[var(--color-border-muted)] flex items-center gap-4 cursor-pointer"
                                     >
                                        <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 shadow-lg">
                                           <Image src={pet.image} alt={pet.name} fill className="object-cover" />
                                        </div>
-                                       <div className="flex flex-col min-w-0">
-                                          <span className="text-sm font-bold truncate">{pet.name}</span>
-                                          <span className="text-[10px] opacity-50 font-medium truncate">{pet.breed}</span>
+                                       <div className="flex flex-col min-w-0 flex-1">
+                                          <span className="text-sm font-bold truncate text-[var(--color-text-primary)]">{pet.name}</span>
+                                          <span className="text-[10px] text-[var(--color-text-secondary)] font-medium truncate">{pet.breed}</span>
                                           {pet.distance && (
                                              <div className="flex items-center gap-1 mt-1 text-[10px] text-[var(--color-ios-blue)] font-black">
                                                 <MapPin size={10} />
@@ -316,7 +317,7 @@ export default function PetMapView({ initialViewModel }: PetMapViewProps) {
                                              </div>
                                           )}
                                        </div>
-                                       <div className="ml-auto">
+                                       <div className="ml-auto shrink-0">
                                           <Badge label={pet.type === 'Dog' ? 'หมา' : 'แมว'} type={pet.type === 'Dog' ? 'blue' : 'green'} className="scale-75 origin-right" />
                                        </div>
                                     </div>
