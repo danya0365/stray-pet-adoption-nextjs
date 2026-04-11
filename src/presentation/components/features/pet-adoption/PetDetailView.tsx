@@ -135,9 +135,11 @@ export const PetDetailView: React.FC<PetDetailViewProps> = ({ initialViewModel }
 
           {/* Call to Action Section */}
           <div className="flex flex-col gap-4 pt-4">
-            <Button variant="primary" fullWidth className="py-6 text-xl font-black shadow-[0_20px_40px_-10px_rgba(0,122,255,0.4)]">
-              เริ่มต้นส่งใบสมัครรับเลี้ยง
-            </Button>
+            <Link href={`/pets/${pet.id}/apply`} className="w-full">
+              <Button variant="primary" fullWidth className="py-6 text-xl font-black shadow-[0_20px_40px_-10px_rgba(0,122,255,0.4)]">
+                เริ่มต้นส่งใบสมัครรับเลี้ยง
+              </Button>
+            </Link>
             <div className="flex gap-4">
               <Button variant="secondary" fullWidth className="py-4 font-bold opacity-80">
                 สอบถามข้อมูลเพิ่ม

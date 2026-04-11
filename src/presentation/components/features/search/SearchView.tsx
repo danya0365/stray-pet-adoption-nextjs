@@ -12,6 +12,8 @@ import { LocationPickerModal } from '../../shared/LocationPickerModal';
 import { SearchViewModel } from '@/src/presentation/presenters/search/SearchPresenter';
 import { useSearchPresenter } from '@/src/presentation/presenters/search/useSearchPresenter';
 import { formatDistance } from '@/src/application/utils/location';
+import { Input } from '@/src/presentation/components/ui/Input';
+import { cn } from '@/src/application/utils/ui';
 import Link from 'next/link';
 
 interface SearchViewProps {
@@ -41,40 +43,37 @@ export default function SearchView({ initialViewModel }: SearchViewProps) {
       {/* --- Search Engine Header --- */}
       <section className="flex flex-col gap-6">
         <div className="flex flex-col gap-3">
-           <h1 className="text-4xl md:text-6xl font-[1000] tracking-tight text-[var(--color-text-primary)]">
+           <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-[var(--color-text-primary)]">
              ค้นหา<span className="text-[var(--color-ios-blue)]">เพื่อนใหม่</span>..
            </h1>
-           <p className="text-xl font-medium text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
+           <p className="text-lg font-medium text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
              ระบุเงื่อนไขที่ต้องการ แล้วให้เราช่วยหาบ้านที่ใช่ที่สุดสำหรับคุณและน้องๆ
            </p>
         </div>
 
         {/* --- Main Search Bar (Liquid Glass v2) --- */}
         <div className="relative z-10">
-           <div className="flex flex-col lg:flex-row items-stretch gap-4 p-2 rounded-[36px] bg-[var(--color-surface)] backdrop-blur-3xl border border-[var(--glass-border)] shadow-2xl shadow-black/5">
+           <div className="flex flex-col lg:flex-row items-center gap-4 p-3 rounded-[36px] bg-[var(--color-surface)] backdrop-blur-3xl border border-[var(--color-border-muted)] shadow-[var(--glass-shadow-elevated)] transition-all duration-500 hover:shadow-2xl">
               
               {/* Keyword Input Container */}
-              <div className="flex-1 glass-input-container !bg-transparent !border-none !shadow-none !rounded-none">
-                 <div className="flex items-center w-full px-6 gap-4">
-                    <Search className="text-[var(--color-ios-blue)] shrink-0" size={24} />
-                    <input 
-                       type="text"
-                       placeholder="ค้นหาชื่อ หรือ สายพันธุ์..."
-                       className="w-full py-6 bg-transparent outline-none font-bold text-lg text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]"
-                       value={filters.query}
-                       onChange={(e) => updateFilter({ query: e.target.value })}
-                    />
-                 </div>
+              <div className="flex-1 w-full">
+                <Input 
+                  placeholder="ค้นหาชื่อ หรือ สายพันธุ์..."
+                  value={filters.query}
+                  onChange={(e) => updateFilter({ query: e.target.value })}
+                  icon={<Search />}
+                  className="!gap-0"
+                />
               </div>
 
               {/* Action Buttons Group */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 p-2">
+              <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
                  {/* Location Picker Trigger */}
                  <button 
                    onClick={() => setIsLocationModalOpen(true)}
-                   className="w-full sm:w-auto flex items-center gap-4 px-6 py-4 rounded-[28px] bg-[var(--color-ios-blue)]/10 hover:bg-[var(--color-ios-blue)]/15 border border-[var(--color-ios-blue)]/20 transition-all group pressable"
+                   className="w-full lg:w-auto flex items-center gap-4 px-6 py-2.5 rounded-[24px] bg-[var(--color-ios-blue)]/5 hover:bg-[var(--color-ios-blue)]/10 border border-[var(--color-ios-blue)]/10 transition-all group pressable"
                  >
-                    <div className="w-10 h-10 rounded-2xl bg-[var(--color-ios-blue)] text-white flex items-center justify-center shrink-0 shadow-lg shadow-[var(--color-ios-blue)]/30">
+                    <div className="w-10 h-10 rounded-2xl bg-[var(--color-ios-blue)] text-white flex items-center justify-center shrink-0 shadow-lg shadow-[var(--color-ios-blue)]/20">
                        <MapPin size={20} />
                     </div>
                     <div className="flex flex-col items-start min-w-[140px] text-left">
@@ -85,16 +84,17 @@ export default function SearchView({ initialViewModel }: SearchViewProps) {
                     </div>
                  </button>
 
-                 <div className="hidden sm:block h-10 w-[1px] bg-[var(--color-border-muted)] mx-2" />
+                 <div className="hidden lg:block h-8 w-[1px] bg-[var(--color-border-muted)] mx-2" />
 
                  {/* Advanced Filter Toggle */}
-                 <button 
+                 <Button 
+                   variant={showAdvanced ? "primary" : "secondary"}
                    onClick={() => setShowAdvanced(!showAdvanced)}
-                   className={`w-full sm:w-auto px-6 py-4 rounded-[28px] flex items-center justify-center gap-3 transition-all pressable ${showAdvanced ? 'bg-[var(--color-ios-blue)] text-white' : 'bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)] border border-[var(--glass-border)]'}`}
+                   className="w-full lg:w-auto px-8 py-3.5 rounded-[24px]"
                  >
-                    <SlidersHorizontal size={22} />
-                    <span className="font-bold text-sm">ตัวกรอง</span>
-                 </button>
+                    <SlidersHorizontal size={20} />
+                    <span>ตัวกรอง</span>
+                 </Button>
               </div>
            </div>
         </div>
@@ -174,9 +174,9 @@ export default function SearchView({ initialViewModel }: SearchViewProps) {
                   Searching...
                </div>}
                
-               <Link href="/map" className="group flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--color-ios-blue)]/10 hover:bg-[var(--color-ios-blue)] text-[var(--color-ios-blue)] hover:text-white transition-all pressable border border-[var(--color-ios-blue)]/20">
-                  <MapIcon size={16} />
-                  <span className="text-[10px] font-bold uppercase tracking-widest">Map Mode</span>
+               <Link href="/map" className="pressable group flex items-center gap-3 px-6 py-3 rounded-2xl bg-[var(--color-ios-blue)] text-white shadow-xl shadow-[var(--color-ios-blue)]/30 transition-all hover:scale-105">
+                  <MapIcon size={18} />
+                  <span className="text-[11px] font-black uppercase tracking-[2px]">Map Mode</span>
                </Link>
             </div>
          </div>

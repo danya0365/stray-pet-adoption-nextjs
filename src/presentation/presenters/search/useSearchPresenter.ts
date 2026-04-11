@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { SearchViewModel, SearchFilters, SearchPresenter } from "./SearchPresenter";
 import { createClientSearchPresenter } from "./SearchPresenterClientFactory";
-import { SelectedLocation } from "../../shared/LocationPickerModal";
+import { SelectedLocation } from "@/src/presentation/components/shared/LocationPickerModal";
 
 /**
  * Custom hook for Search presenter

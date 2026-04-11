@@ -52,7 +52,7 @@ export class SearchPresenter {
     const result = await this.repository.findAll();
     
     // Check if result is success
-    if (result.type === 'failure') {
+    if (result.isFailure()) {
       return {
         pets: [],
         totalCount: 0,
@@ -61,13 +61,13 @@ export class SearchPresenter {
       };
     }
 
-    const allPets = result.value;
+    const allPets = (result as any).value as Pet[];
     
     // 1. Get unique breeds for the filter dropdown
-    const breeds = Array.from(new Set(allPets.map(p => p.breed))).sort();
+    const breeds = Array.from(new Set(allPets.map((p: Pet) => p.breed))).sort();
 
     // 2. Perform search logic
-    let results = allPets.map(pet => {
+    let results = allPets.map((pet: Pet) => {
       let distance: number | undefined;
       // Calculate distance if both points exist (simplified calculation here or use helper)
       if (filters.latitude && filters.longitude && pet.latitude && pet.longitude) {
@@ -77,7 +77,7 @@ export class SearchPresenter {
     });
 
     // Filtering
-    results = results.filter(pet => {
+    results = results.filter((pet: any) => {
       const matchQuery = !filters.query || 
                         pet.name.toLowerCase().includes(filters.query.toLowerCase()) || 
                         pet.breed.toLowerCase().includes(filters.query.toLowerCase());
