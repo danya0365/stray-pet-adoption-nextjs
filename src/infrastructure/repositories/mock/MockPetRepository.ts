@@ -20,6 +20,8 @@ export class MockPetRepository implements IPetRepository {
       age: 2,
       gender: "Male",
       status: "Available",
+      latitude: 13.736717,
+      longitude: 100.523186,
       createdAt: new Date('2024-03-20')
     },
     {
@@ -32,6 +34,8 @@ export class MockPetRepository implements IPetRepository {
       age: 1,
       gender: "Female",
       status: "Available",
+      latitude: 13.724893,
+      longitude: 100.522617,
       createdAt: new Date('2024-03-21')
     },
     {
@@ -44,6 +48,8 @@ export class MockPetRepository implements IPetRepository {
       age: 3,
       gender: "Male",
       status: "Available",
+      latitude: 13.756331,
+      longitude: 100.501765,
       createdAt: new Date('2024-03-18')
     },
     {
@@ -56,6 +62,8 @@ export class MockPetRepository implements IPetRepository {
       age: 1,
       gender: "Female",
       status: "Available",
+      latitude: 13.746002,
+      longitude: 100.534882,
       createdAt: new Date('2024-03-22')
     },
     {
@@ -68,6 +76,8 @@ export class MockPetRepository implements IPetRepository {
       age: 4,
       gender: "Female",
       status: "Available",
+      latitude: 13.731738,
+      longitude: 100.569503,
       createdAt: new Date('2024-03-23')
     }
   ];

@@ -13,6 +13,8 @@ export interface Pet {
   age?: number;
   gender?: 'Male' | 'Female';
   status: 'Available' | 'Adopted' | 'Pending';
+  latitude?: number;
+  longitude?: number;
   createdAt: Date;
 }
 

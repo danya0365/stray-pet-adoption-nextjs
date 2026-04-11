@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Search, Heart, User, Settings, Info, LogOut, Sun, Moon, LayoutGrid } from 'lucide-react';
+import { Home, Search, Heart, User, Settings, Info, LogOut, Sun, Moon, LayoutGrid, MapPin } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useTheme } from 'next-themes';
@@ -70,6 +70,7 @@ export const Sidebar: React.FC = () => {
         <nav className="flex flex-col gap-2 flex-grow">
           <div className="section-label px-2 opacity-40">Main Menu</div>
           <SidebarItem icon={Home} label="หน้าแรก" href="/" active={pathname === '/'} />
+          <SidebarItem icon={MapPin} label="แผนที่" href="/map" active={pathname === '/map'} />
           <SidebarItem icon={Search} label="ค้นหา" href="/search" active={pathname === '/search'} />
           <SidebarItem icon={Heart} label="ที่ชอบ" href="/favorites" active={pathname === '/favorites'} />
           <SidebarItem icon={User} label="โปรไฟล์" href="/profile" active={pathname === '/profile'} />
